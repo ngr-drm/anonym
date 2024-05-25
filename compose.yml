@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    env_file: ./.env
+
+    environment:
+      POSTGRES_PASSWORD: $PG_PASSWORD
+      POSTGRES_DB: $PG_DATABASE
+
+    ports:
+      - $PG_PORT:$PG_DOCKER_PORT
