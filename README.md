@@ -74,4 +74,4 @@ _A prioridade foi testar as funções puras, especificamente as que realizam ope
 
 Você vai encontrar alguns pontos no código-fonte onde faço o uso do tipo _any_, mas não implica dizer que não tentei evitá-los ou deixei de pensar na segurança e solidez de tipo (type safety).
 
-Na raiz do projeto você vai encontrar um arquivo chamado _api-doc.postman.json_. Basta importá-lo no Postman para obter as informações das rotas e realizar os testes funcionais.
+Na raiz do projeto você vai encontrar um arquivo chamado _api-doc.postman.v1.json_. Basta importá-lo no Postman para obter as informações das rotas e realizar os testes funcionais.
