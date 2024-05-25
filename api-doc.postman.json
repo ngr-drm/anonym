@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "1fdf0530-1ff5-4f3b-9157-91755104b1ab",
+		"name": "anonym-challenge",
+		"description": "API para transferência financeira entre contas.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35095570"
+	},
+	"item": [
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/health",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"health"
+					]
+				},
+				"description": "para testar a integridade do servidor."
+			},
+			"response": []
+		},
+		{
+			"name": "open account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Cauly de Andrade\",\n    \"doc\": \"095.000.111-99\",\n    \"email\": \"cly@gmail.com\",\n    \"password\": \"2345\",\n    \"wallet\": 100.00,\n    \"type\": \"COMUM\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/customer/account",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"customer",
+						"account"
+					]
+				},
+				"description": "para abertura de contas.\n\ne.g. (clinente do tipo -> \"COMUM\", \"LOGISTA\")."
+			},
+			"response": []
+		},
+		{
+			"name": "transfers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"origin_account\": \"1004\",\n    \"target_account\": \"1003\",\n    \"value\": 20.00,\n    \"password\": \"2345\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/transfer",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"transfer"
+					]
+				},
+				"description": "para registrar as transferências.  \nobs: todas as transferências são criadas com status ''PROCESSING\" por padrão."
+			},
+			"response": []
+		},
+		{
+			"name": "conciliation",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"7adc29a2-1e9e-45ac-9745-7c389d74e6f9\",\n    \"value\": 20.00,\n    \"status\": \"REFUSED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/conciliation",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"conciliation"
+					]
+				},
+				"description": "webhook para conciliar as transações.\n\ne.g. se um transação foi recusada, iremos realizar o estordo da transferência, sensibilizando o saldo-conta de origem e atualizando o status da operação para \"REVERSED\". caso contrário, será feito o fluxo inverso, ou seja, creditamos o saldo-conta de destino e atualizamos o status da operação para \"FINISHED\".\n\nobs: toda transferência possui um token para garantir a idempotência da operação."
+			},
+			"response": []
+		}
+	]
+}
