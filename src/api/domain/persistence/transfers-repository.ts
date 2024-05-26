@@ -36,14 +36,14 @@ export async function save(data: Transfer, newOriginBalance: number) {
   }
 }
 
-export async function getTransfer(token: string, value: number) {
+export async function getTransfer(token: string) {
   const client = await dbConn();
+
   const query = {
-    text: `SELECT * FROM managerial_account 
-    WHERE token = $1
-    AND value = $2`,
-    values: [token, value],
+    text: 'SELECT * FROM managerial_account WHERE token = $1',
+    values: [token],
   };
+
   const queryResult = await client.query(query);
   client.release();
   return queryResult.rows[0];

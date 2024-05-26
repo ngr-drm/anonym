@@ -1,4 +1,4 @@
-import { creditWallet, debitWallet, encryptPassword, isValidBalance, isValidPassword } from './shared/fixtures';
+import { creditWallet, debitWallet, encryptPassword, isValidBalance, isValidPassword, securingMonetaryValues } from './shared/fixtures';
 
 describe('fixtures', () => {
   it('should validate balance as expected', () => {
@@ -17,14 +17,22 @@ describe('fixtures', () => {
   });
 
   it('should validate the debit in the wallet', () => {
-    const wallet = 100;
-    const debitValue = 50;
-    expect(debitWallet(wallet, debitValue)).toEqual(50);
+    const wallet = 100.55;
+    const debitValue = 50.25;
+    expect(debitWallet(wallet, debitValue)).toEqual(50.3);
   });
 
   it('should validate the credit in the wallet', () => {
-    const wallet = 100;
-    const creditValue = 50;
-    expect(creditWallet(wallet, creditValue)).toEqual(150);
+    const wallet = 89.5;
+    const creditValue = 10.5;
+    expect(creditWallet(wallet, creditValue)).toEqual(100);
+  });
+
+  it('should guarantee conversion to the numeric type', () => {
+    expect.assertions(2);
+    const value = '10.5';
+    const casting = securingMonetaryValues(value);
+    expect(typeof casting).toBe('number');
+    expect(securingMonetaryValues(value)).toEqual(10.5);
   });
 });

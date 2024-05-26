@@ -26,11 +26,19 @@ export async function isValidPassword(password: string, hash: string) {
 }
 
 export function debitWallet(wallet: number, value: number) {
+  wallet = securingMonetaryValues(wallet);
+  value = securingMonetaryValues(value);
   return wallet - value;
 }
 
 export function creditWallet(wallet: number, value: number) {
+  wallet = securingMonetaryValues(wallet);
+  value = securingMonetaryValues(value);
   return wallet + value;
+}
+
+export function securingMonetaryValues(value: string | number) {
+  return Number(value);
 }
 
 export function serializeVoucher(data: any) {

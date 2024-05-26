@@ -5,7 +5,7 @@ async function dbConn() {
   return await pgPool().connect();
 }
 
-export async function reversed(account: bigint, value: number, token: string) {
+export async function reversed(account: number, value: number, token: string) {
   const client = await dbConn();
   try {
     await client.query('BEGIN');
@@ -17,12 +17,10 @@ export async function reversed(account: bigint, value: number, token: string) {
     };
     await client.query(updateWallet);
 
-    const newStatus: string = TransactionStatusEnum.REVERSED;
-
     const updateTransaction = {
       text: `UPDATE managerial_account SET status = $1
-      WHERE token = $2 AND status <> $3;`,
-      values: [newStatus, token, TransactionStatusEnum.FINISHED],
+      WHERE token = $2;`,
+      values: [TransactionStatusEnum.REVERSED, token],
     };
 
     await client.query(updateTransaction);
@@ -35,7 +33,7 @@ export async function reversed(account: bigint, value: number, token: string) {
   }
 }
 
-export async function finalize(account: bigint, value: number, token: string) {
+export async function finalize(account: number, value: number, token: string) {
   const client = await dbConn();
   try {
     await client.query('BEGIN');
@@ -47,12 +45,10 @@ export async function finalize(account: bigint, value: number, token: string) {
     };
     await client.query(updateWallet);
 
-    const newStatus: string = TransactionStatusEnum.FINISHED;
-
     const updateTransaction = {
       text: `UPDATE managerial_account SET status = $1
-      WHERE token = $2 AND status <> $3;`,
-      values: [newStatus, token, TransactionStatusEnum.FINISHED],
+      WHERE token = $2;`,
+      values: [TransactionStatusEnum.FINISHED, token],
     };
 
     await client.query(updateTransaction);

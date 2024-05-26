@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { Conciliation, Customer, Transfer } from './shared/value-objects';
-import { obtainInfo, openAccount } from './services/custormers-service';
+import { customerInfo, openAccount } from './services/custormers-service';
 import { makeTransfer } from './services/transfers-service';
 import { isAuthorized, isValidBalance } from './shared/fixtures';
 import { conciliation } from './services/conciliation-service';
@@ -25,7 +25,7 @@ async function routes(fastify: any) {
   fastify.post('/transfer', async (request: FastifyRequest, reply: FastifyReply) => {
     const transfer = request.body as Transfer;
     try {
-      const customer = await obtainInfo(transfer.origin_account);
+      const customer = await customerInfo(transfer.origin_account);
 
       if (!(await isAuthorized(customer.type, transfer.password, customer.password))) {
         return reply.code(401).send({ message: 'authentication failure...' });

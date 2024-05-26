@@ -11,8 +11,8 @@ export type Transfer = {
   value: number;
   status: TransactionStatusEnum;
   password: string;
-  origin_account: bigint;
-  target_account: bigint;
+  origin_account: number;
+  target_account: number;
 };
 
 export enum TransactionStatusEnum {
@@ -28,8 +28,8 @@ export enum CustomerType {
 }
 
 export type Voucher = {
-  origin_account: bigint;
-  target_account: bigint;
+  origin_account: number;
+  target_account: number;
   date_time: string;
   value: number;
   token: string;

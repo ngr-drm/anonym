@@ -17,12 +17,25 @@ export async function save(data: Customer) {
   return queryResult.rows[0];
 }
 
-export async function getOne(account: bigint) {
+export async function balance(account: number) {
+  const client = await dbConn();
+  const query = {
+    text: `SELECT wallet FROM customers WHERE account = $1`,
+    values: [account],
+  };
+
+  const queryResult = await client.query(query);
+  client.release();
+  return queryResult.rows[0].wallet;
+}
+
+export async function customer(account: number) {
   const client = await dbConn();
   const query = {
     text: `SELECT * FROM customers WHERE account = $1`,
     values: [account],
   };
+
   const queryResult = await client.query(query);
   client.release();
   return queryResult.rows[0];
