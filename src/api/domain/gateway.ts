@@ -15,7 +15,7 @@ async function routes(fastify: any) {
     try {
       const account = await openAccount(body);
       reply.log.info({ account: account }, 'account successfully opened...');
-      return reply.code(200).send(account);
+      return reply.code(201).send(account);
     } catch (error) {
       reply.log.error(error);
       return reply.code(500).send({ message: 'internal server error...' });

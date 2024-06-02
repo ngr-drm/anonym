@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import { pgPool } from './api/providers/pg-db/pg-connector';
 import routes from './api/domain/gateway';
+import vars from './api/config-env';
 
 (async function run() {
   const fastify = Fastify({ logger: true });
@@ -11,12 +12,13 @@ import routes from './api/domain/gateway';
     fastify.log.info('successful database connection...');
   } catch (error) {
     fastify.log.error('database connection failure...');
+    fastify.log.error(error);
     process.exit(1);
   }
 
   await fastify.register(routes);
 
-  fastify.listen({ port: 3000, host: '127.0.0.1' }, function (error, address) {
+  fastify.listen({ port: vars.API_PORT, host: '0.0.0.0' }, function (error, address) {
     if (error) {
       fastify.log.error(error);
       process.exit(1);
