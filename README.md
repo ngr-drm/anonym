@@ -1,4 +1,4 @@
-<h2>ANONYM CHALLENGE</h2>
+<h2>ANONYM</h2>
 
 <h3>Motivação </h3>
 
