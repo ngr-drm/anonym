@@ -1,6 +1,6 @@
 <h2>ANONYM</h2>
 
-<h3>Motivação </h3>
+<h3>Motivação</h3>
 
 Essa aplicação usa como base o padrão de arquitetura em camadas e o paradigma funcional. Mas pela natureza do desafio, se fez necessário adicionar apenas camadas que agregam valor e consequentemente atendem aos requisitos. A solução visa evitar excessos de complexidade e rigidez.
 
@@ -79,7 +79,7 @@ Execute o comando a seguir para rodar os testes
   $ npm run test
 ```
 
-_A prioridade foi testar as funções puras, especificamente as que realizam operações sensíveis. Mas obviamente, a recomendação é entregar uma maior cobertura_
+_A prioridade foi testar as funções puras, especificamente as que realizam operações sensíveis._
 
 #
 
